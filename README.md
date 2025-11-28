@@ -1,2 +1,4 @@
-# calculadora_react_vite
-Calculadora realizada en React + Vite
+# Calculadora React + Vite 🚀
+🚧 Proyecto en construcción 🚧
+
+
