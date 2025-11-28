@@ -6,6 +6,8 @@ import Display from './components/Display.jsx'
 import Boton from './components/Boton.jsx'
 import Teclado from './components/Teclado.jsx'
 import Calculadora from './components/Calculadora.jsx'
+import BackgroundLogo from './components/BackgroundLogo.jsx'
+
 
 function App() {
 
@@ -20,7 +22,15 @@ function App() {
 
 
   return (
-    <Calculadora value="0" onButtonClick={handleClick} />
+    <>
+    <BackgroundLogo />
+    <div style={{ position: "relative", zIndex: 2 }}>
+        {/* Aquí va tu Header, Calculadora y Footer */}
+        <Calculadora value="0" onButtonClick={handleClick} />
+      </div>
+    
+    </>
+    
   );
 }
 
