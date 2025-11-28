@@ -1,10 +1,7 @@
-import { useState } from 'react'
 import { useEffect } from 'react'
 
 // Importamos componentes necesarios
-import Display from './components/Display.jsx'
-import Boton from './components/Boton.jsx'
-import Teclado from './components/Teclado.jsx'
+import Footer from './components/Footer.jsx'
 import Calculadora from './components/Calculadora.jsx'
 import BackgroundLogo from './components/BackgroundLogo.jsx'
 
@@ -23,14 +20,24 @@ function App() {
 
   return (
     <>
-    <BackgroundLogo />
-    <div style={{ position: "relative", zIndex: 2 }}>
-        {/* Aquí va tu Header, Calculadora y Footer */}
-        <Calculadora value="0" onButtonClick={handleClick} />
+      <BackgroundLogo />
+
+      {/* Contenedor vertical de toda la app */}
+      <div
+        className="d-flex flex-column min-vh-100 position-relative"
+        style={{ zIndex: 2 }}
+      >
+
+        {/* Header irá aquí */}
+
+        {/* Contenido principal (centra la calculadora) */}
+        <main className="flex-grow-1 d-flex justify-content-center align-items-center">
+          <Calculadora value="0" onButtonClick={handleClick} />
+        </main>
+
+        <Footer />
       </div>
-    
     </>
-    
   );
 }
 

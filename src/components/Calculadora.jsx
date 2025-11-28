@@ -6,15 +6,9 @@ import Teclado from "./Teclado"
 
 export default function Calculadora({ value, onButtonClick }) {
     return (
-        <Container
-            className="d-flex justify-content-center align-items-center"
-            style={{ minHeight: "100vh" }}
-        >
+        <Container className="d-flex justify-content-center align-items-center">
             <Card className="shadow-lg p-3 bg-body-tertiary" style={{ width: "350px" }}>
-                {/* Display */}
                 <Display value={value} />
-
-                {/* Teclado */}
                 <Teclado onButtonClick={onButtonClick} />
             </Card>
         </Container>
