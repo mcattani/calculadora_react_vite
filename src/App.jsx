@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 // Importamos componentes necesarios
+import Header from './layout/Header.jsx'
 import Footer from './components/Footer.jsx'
 import Calculadora from './components/Calculadora.jsx'
 import BackgroundLogo from './components/BackgroundLogo.jsx'
@@ -27,9 +28,8 @@ function App() {
         className="d-flex flex-column min-vh-100 position-relative"
         style={{ zIndex: 2 }}
       >
-
-        {/* Header irá aquí */}
-
+        <Header />
+        
         {/* Contenido principal (centra la calculadora) */}
         <main className="flex-grow-1 d-flex justify-content-center align-items-center">
           <Calculadora value="0" onButtonClick={handleClick} />
