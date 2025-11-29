@@ -21,10 +21,10 @@ export default function Teclado({ onButtonClick }) {
 
             {/* Fila 2 */}
             <Row className="g-2 mb-2">
-                <Col><Boton label="7" onClick={onButtonClick} /></Col>
-                <Col><Boton label="8" onClick={onButtonClick} /></Col>
-                <Col><Boton label="9" onClick={onButtonClick} /></Col>
-                <Col><Boton label="+" onClick={onButtonClick} /></Col>
+                <Col><Boton label="1" onClick={onButtonClick} /></Col>
+                <Col><Boton label="2" onClick={onButtonClick} /></Col>
+                <Col><Boton label="3" onClick={onButtonClick} /></Col>
+                
             </Row>
 
             {/* Fila 3 */}
@@ -32,19 +32,17 @@ export default function Teclado({ onButtonClick }) {
                 <Col><Boton label="4" onClick={onButtonClick} /></Col>
                 <Col><Boton label="5" onClick={onButtonClick} /></Col>
                 <Col><Boton label="6" onClick={onButtonClick} /></Col>
-                <Col><Boton label="=" variant="warning" onClick={onButtonClick} /></Col>
             </Row>
 
             {/* Fila 4 */}
             <Row className="g-2 mb-2">
-                <Col><Boton label="1" onClick={onButtonClick} /></Col>
-                <Col><Boton label="2" onClick={onButtonClick} /></Col>
-                <Col><Boton label="3" onClick={onButtonClick} /></Col>
-                <Col><Boton label="=" variant="warning" onClick={onButtonClick} /></Col>
+                <Col><Boton label="7" onClick={onButtonClick} /></Col>
+                <Col><Boton label="8" onClick={onButtonClick} /></Col>
+                <Col><Boton label="9" onClick={onButtonClick} /></Col>
             </Row>
 
             {/* Fila 5 */}
-            <Row className="g-2">
+            <Row className="g-2 mb-2">
                 <Col xs={6}><Boton label="0" onClick={onButtonClick} /></Col>
                 <Col xs={3}><Boton label="." onClick={onButtonClick} /></Col>
                 <Col xs={3}><Boton label="=" variant="warning" onClick={onButtonClick} /></Col>
