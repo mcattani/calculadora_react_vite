@@ -1,10 +1,11 @@
 /*Componente para mostrar el valor actual de la calculadora
-Su único trabajo es mostrar lo que recibe por props.
+   Ahora admite un mini-display superior (smallValue) para mostrar
+   el valor previo y el operador seleccionado.
 */
 
 import { Card } from "react-bootstrap";
 
-export default function Display({ value }) {
+export default function Display({ value, smallValue }) {
     return (
         <Card className="mb-3">
             <Card.Body
@@ -12,20 +13,33 @@ export default function Display({ value }) {
           bg-dark 
           text-light 
           rounded 
-          fs-1 
           text-end 
           py-3
         "
             >
-                {value}
+                {/* Mini display (operación en curso) */}
+                {smallValue && (
+                    <div
+                        className="text-secondary small"
+                        style={{ opacity: 0.7 }}
+                    >
+                        {smallValue}
+                    </div>
+                )}
+
+                {/* Display principal */}
+                <div className="fs-1">
+                    {value}
+                </div>
             </Card.Body>
         </Card>
     );
 }
 
 /*
-bg-dark y text-light -> display tipo calculadora.
-fs-1 → font-size extra grande.
-text-end → alinea el número a la derecha
-py-3 → padding vertical generoso.
+smallValue -> texto más chico arriba (ej: "7 +")
+text-secondary + opacity -> color tenue para distinguirlo del valor principal
+fs-1 -> mantiene el tamaño grande del número principal
+text-end -> ambas cosas alineadas a la derecha
+py-3 -> padding vertical generoso
 */

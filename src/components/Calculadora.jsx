@@ -12,6 +12,14 @@ export default function Calculadora() {
     const [valorPrevio, setValorPrevio] = useState(null); // El número guardado para la operación
     const [operacionActual, setOperacionActual] = useState(null); // La operación seleccionada
 
+    // Función para generar el smallValue del display
+    function smallDisplay() {
+        if (valorPrevio && operacionActual) {
+            return `${valorPrevio} ${operacionActual}`;
+        }
+        return "";
+    }
+
     // Función principal que maneja todos los botones
     function onButtonClick(btn) {
         // Si es un número
@@ -120,7 +128,7 @@ export default function Calculadora() {
     return (
         <Container className="d-flex justify-content-center align-items-center">
             <Card className="shadow-lg p-3 bg-body-tertiary" style={{ width: "350px" }}>
-                <Display value={valorActual} />
+                <Display value={valorActual} smallValue={smallDisplay()} />
                 <Teclado onButtonClick={onButtonClick} />
             </Card>
         </Container>
