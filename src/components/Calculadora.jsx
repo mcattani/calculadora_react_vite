@@ -55,13 +55,22 @@ export default function Calculadora() {
         }
 
         // Si es el punto decimal (.)
-        if (btn === ".") {
-            if (!valorActual.includes(".")) {
-                setValorActual(valorActual + ".");
-            }
-            return;
-        }
+        if (btn === ".") return manejarDecimal();
 
+        // Función para manejar el punto decimal
+        function manejarDecimal() {
+            // Si el valor actual es 0, iniciamos con "0."
+            if (valorActual === "0") {
+                setValorActual("0.");
+                return;
+            }
+            // Si ya contiene un punto decimal, no hacemos nada
+            if (valorActual.includes(".")) return;
+            // Si no, añadimos el punto decimal
+            setValorActual(valorActual + ".");
+            return;
+        }        
+        
         // Si es una operación
         if (["+", "-", "×", "÷", "%"].includes(btn)) {
             setValorPrevio(valorActual);
@@ -101,7 +110,7 @@ export default function Calculadora() {
                     break;
             }
 
-            setValorActual(String(resultado));
+            setValorActual(String(resultado.toFixed(8)));
             setValorPrevio(null);
             setOperacionActual(null);
             return;
