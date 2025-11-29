@@ -20,6 +20,15 @@ export default function Calculadora() {
         return "";
     }
 
+    // Función para limpiar decimales innecesarios
+    function limpiarNumero(num) {
+        // Si el número es entero, lo convertimos a string sin decimales
+        if (Number.isInteger(num)) return String(num);
+        // Si no, limitamos a 8 decimales
+        return String(Number(num.toFixed(8)));
+    }
+        
+
     // Función principal que maneja todos los botones
     function onButtonClick(btn) {
         // Si es un número
@@ -118,7 +127,7 @@ export default function Calculadora() {
                     break;
             }
 
-            setValorActual(String(resultado.toFixed(8)));
+            setValorActual(String(limpiarNumero(resultado)));
             setValorPrevio(null);
             setOperacionActual(null);
             return;
