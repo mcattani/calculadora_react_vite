@@ -43,8 +43,9 @@ export default function Teclado({ onButtonClick }) {
 
             {/* Fila 5 */}
             <Row className="g-2 mb-2">
-                <Col xs={6}><Boton label="0" onClick={onButtonClick} /></Col>
+                <Col xs={3}><Boton label="0" onClick={onButtonClick} /></Col>
                 <Col xs={3}><Boton label="." onClick={onButtonClick} /></Col>
+                <Col xs={3}><Boton label="+/-" onClick={onButtonClick} /></Col>
                 <Col xs={3}><Boton label="=" variant="warning" onClick={onButtonClick} /></Col>
             </Row>
         </>
