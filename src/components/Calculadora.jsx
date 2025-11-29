@@ -1,14 +1,21 @@
-// Componente Calculadora UI
+/*En este componente manejamos la lógica de la calculadora*/
 
 import { Card, Container } from "react-bootstrap"
 import Display from "./Display"
 import Teclado from "./Teclado"
+import { useState } from "react";
 
-export default function Calculadora({ value, onButtonClick }) {
+export default function Calculadora() {
+
+    // Definimos los estados que utilizaremos
+    const [valorActual, setValorActual] = useState("0"); // Lo que se muestra en el display
+    const [valorPrevio, setValorPrevio] = useState(null); // El número guardado para la operación
+    const [operacionActual, setOperacionActual] = useState(null); // La operación seleccionada
+
     return (
         <Container className="d-flex justify-content-center align-items-center">
             <Card className="shadow-lg p-3 bg-body-tertiary" style={{ width: "350px" }}>
-                <Display value={value} />
+                <Display value={valorActual} />
                 <Teclado onButtonClick={onButtonClick} />
             </Card>
         </Container>
