@@ -22,25 +22,25 @@ export default function Teclado({ onButtonClick }) {
 
             {/* Fila 2 */}
             <Row className="g-2 mb-2">
-                <Col><Boton label="7" onClick={onButtonClick} /></Col>
-                <Col><Boton label="8" onClick={onButtonClick} /></Col>
-                <Col><Boton label="9" onClick={onButtonClick} /></Col>
+                <Col><Boton label="1" onClick={onButtonClick} /></Col>
+                <Col><Boton label="2" onClick={onButtonClick} /></Col>
+                <Col><Boton label="3" onClick={onButtonClick} /></Col>
                 <Col><Boton label="×" variant="info" onClick={onButtonClick} /></Col>
             </Row>
 
             {/* Fila 3 */}
             <Row className="g-2 mb-2">
-                <Col><Boton label="6" onClick={onButtonClick} /></Col>
-                <Col><Boton label="5" onClick={onButtonClick} /></Col>
                 <Col><Boton label="4" onClick={onButtonClick} /></Col>
+                <Col><Boton label="5" onClick={onButtonClick} /></Col>
+                <Col><Boton label="6" onClick={onButtonClick} /></Col>
                 <Col><Boton label="-" variant="info" onClick={onButtonClick} /></Col>
             </Row>
 
             {/* Fila 4 */}
             <Row className="g-2 mb-2">
-                <Col><Boton label="1" onClick={onButtonClick} /></Col>
-                <Col><Boton label="2" onClick={onButtonClick} /></Col>
-                <Col><Boton label="3" onClick={onButtonClick} /></Col>
+                <Col><Boton label="7" onClick={onButtonClick} /></Col>
+                <Col><Boton label="8" onClick={onButtonClick} /></Col>
+                <Col><Boton label="9" onClick={onButtonClick} /></Col>
                 <Col><Boton label="+" variant="info" onClick={onButtonClick} /></Col>
             </Row>
 
