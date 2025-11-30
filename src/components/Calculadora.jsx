@@ -30,13 +30,26 @@ export default function Calculadora() {
         return String(Number(num.toFixed(8)));
     }
 
+    // Función para resetear la calculadora: toma como parámetros el estado de error y el valor actual
+    function resetCalc(error, value) {
+        setValorActual(value);
+        setValorPrevio(null);
+        setOperacionActual(null);
+        setError(error);
+    }
 
     // Función principal que maneja todos los botones
     function onButtonClick(btn) {
 
-        // Si hay un error o el valor actual es infinito, solo permitimos el botón AC
-        if ((error || valorActual === "∞") && btn !== "AC") {
-            toast.error('Error en operación! Presione AC para continuar', {
+        // Si hay un error o el valor actual es infinito, solo permitimos el botón AC y DEL
+        if (error || valorActual === "∞") {
+            if (btn === "AC") return limpiarCalc(false, "0");
+            if (btn === "DEL") {
+                resetCalc(false, "0");
+                return;
+            }
+
+            toast.error('!Error! Presione AC o DEL para continuar', {
                 position: "top-center",
                 autoClose: 2500,
                 hideProgressBar: false,
@@ -45,7 +58,7 @@ export default function Calculadora() {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                transition: Bounce, 
+                transition: Bounce,
             });
             return;
         }
@@ -62,10 +75,7 @@ export default function Calculadora() {
 
         // Si es AC (limpiar)
         if (btn === "AC") {
-            setValorActual("0");
-            setValorPrevio(null);
-            setOperacionActual(null);
-            setError(false);
+            resetCalc(false, "0");
             return;
         }
 
@@ -116,8 +126,6 @@ export default function Calculadora() {
             return;
         }
 
-        // Si el valor es ∞, no permitimos más operaciones hasta limpiar
-
         // Si es igual (=) realizamos la operación
         if (btn === "=") {
             if (valorPrevio === null || !operacionActual) return;
@@ -138,10 +146,7 @@ export default function Calculadora() {
                     break;
                 case "÷":
                     if (num2 === 0) {
-                        setValorActual("∞");
-                        setValorPrevio(null);
-                        setOperacionActual(null);
-                        setError(true);
+                        resetCalc(true, "∞");
                         return;
                     }
                     resultado = num1 / num2;
