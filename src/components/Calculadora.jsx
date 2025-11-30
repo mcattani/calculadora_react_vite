@@ -4,6 +4,7 @@ import { Card, Container } from "react-bootstrap"
 import Display from "./Display"
 import Teclado from "./Teclado"
 import { useState } from "react";
+import { toast, Bounce } from 'react-toastify';
 
 export default function Calculadora() {
 
@@ -11,6 +12,7 @@ export default function Calculadora() {
     const [valorActual, setValorActual] = useState("0"); // Lo que se muestra en el display
     const [valorPrevio, setValorPrevio] = useState(null); // El número guardado para la operación
     const [operacionActual, setOperacionActual] = useState(null); // La operación seleccionada
+    const [error, setError] = useState(false); // Estado para manejar errores (dividir por cero)
 
     // Función para generar el smallValue del display
     function smallDisplay() {
@@ -27,10 +29,27 @@ export default function Calculadora() {
         // Si no, limitamos a 8 decimales
         return String(Number(num.toFixed(8)));
     }
-        
+
 
     // Función principal que maneja todos los botones
     function onButtonClick(btn) {
+
+        // Si hay un error o el valor actual es infinito, solo permitimos el botón AC
+        if ((error || valorActual === "∞") && btn !== "AC") {
+            toast.error('Error en operación! Presione AC para continuar', {
+                position: "top-center",
+                autoClose: 2500,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce, 
+            });
+            return;
+        }
+
         // Si es un número
         if (!isNaN(btn)) {
             if (valorActual === "0") {
@@ -46,6 +65,7 @@ export default function Calculadora() {
             setValorActual("0");
             setValorPrevio(null);
             setOperacionActual(null);
+            setError(false);
             return;
         }
 
@@ -86,8 +106,8 @@ export default function Calculadora() {
             // Si no, añadimos el punto decimal
             setValorActual(valorActual + ".");
             return;
-        }        
-        
+        }
+
         // Si es una operación
         if (["+", "-", "×", "÷", "%"].includes(btn)) {
             setValorPrevio(valorActual);
@@ -95,6 +115,8 @@ export default function Calculadora() {
             setValorActual("0");
             return;
         }
+
+        // Si el valor es ∞, no permitimos más operaciones hasta limpiar
 
         // Si es igual (=) realizamos la operación
         if (btn === "=") {
@@ -116,14 +138,17 @@ export default function Calculadora() {
                     break;
                 case "÷":
                     if (num2 === 0) {
-                        setValorActual("Error");
+                        setValorActual("∞");
+                        setValorPrevio(null);
+                        setOperacionActual(null);
+                        setError(true);
                         return;
                     }
                     resultado = num1 / num2;
                     break;
                 case "%":
                     // Calcula el porcentaje del primer número respecto al segundo
-                    resultado = (num1 * num2) / 100;    
+                    resultado = (num1 * num2) / 100;
                     break;
             }
 

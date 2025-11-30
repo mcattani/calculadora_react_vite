@@ -6,6 +6,9 @@ import Footer from './components/Footer.jsx'
 import Calculadora from './components/Calculadora.jsx'
 import BackgroundLogo from './components/BackgroundLogo.jsx'
 
+// Importamos librerías necesarias
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
 
@@ -37,6 +40,8 @@ function App() {
 
         <Footer />
       </div>
+
+      <ToastContainer/>
     </>
   );
 }
