@@ -7,7 +7,7 @@ export default function SEO({
     description = "Calculadora básica desarrollada con React y Vite.",
     keywords = "calculadora, react, vite, javascript, frontend",
     author = "The Nerdy Apprentice",
-    url = "" 
+    url = "https://calculadora-react-tna.netlify.app/" 
 }) {
     return (
         <Helmet>
