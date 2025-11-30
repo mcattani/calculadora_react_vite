@@ -6,6 +6,8 @@ import Teclado from "./Teclado"
 import { useState } from "react";
 import { toast, Bounce } from 'react-toastify';
 
+import { useEffect } from "react"; // Para capturar teclas presionadas
+
 export default function Calculadora() {
 
     // Definimos los estados que utilizaremos
@@ -43,7 +45,7 @@ export default function Calculadora() {
 
         // Si hay un error o el valor actual es infinito, solo permitimos el botón AC y DEL
         if (error || valorActual === "∞") {
-            if (btn === "AC") return limpiarCalc(false, "0");
+            if (btn === "AC") return resetCalc(false, "0");
             if (btn === "DEL") {
                 resetCalc(false, "0");
                 return;
@@ -189,6 +191,44 @@ export default function Calculadora() {
         }
     }
 
+    // Capturamos las teclas presionadas
+    useEffect(() => {
+        function handleKeyDown(e) {
+            let key = e.key;
+
+            // Mapeo de teclas a botones de la calculadora
+            const keyMap = {
+                "Enter": "=",
+                "Backspace": "DEL",
+                "Delete": "AC",
+                "*": "×",
+                "/": "÷",
+                "+": "+",
+                "-": "-",
+                ".": ".",
+            };
+
+            // Solo procesamos si es un número o una tecla mapeada
+            if (!isNaN(key)){
+                onButtonClick(key);
+                return;
+            }
+
+            // Si la tecla está en el mapeo, llamamos a onButtonClick con el valor correspondiente
+            if (keyMap[key]) {
+                onButtonClick(keyMap[key]);
+                return;
+            }
+        }
+        // Listener global para capturar teclas
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            // Lo quitamos al desmontar el componente (evita errores)
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+        
+    }, [valorActual, valorPrevio, operacionActual, error]); // Dependencias para actualizar el efecto cuando cambian los estados
+    
     return (
         <Container className="d-flex justify-content-center align-items-center">
             <Card className="shadow-lg p-3 bg-body-tertiary" style={{ width: "350px" }}>
