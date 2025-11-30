@@ -5,6 +5,7 @@ import Header from './layout/Header.jsx'
 import Footer from './components/Footer.jsx'
 import Calculadora from './components/Calculadora.jsx'
 import BackgroundLogo from './components/BackgroundLogo.jsx'
+import SEO from './components/SEO.jsx'
 
 // Importamos librerías necesarias
 import { ToastContainer } from 'react-toastify'
@@ -18,12 +19,12 @@ function App() {
   }, []);
 
   const handleClick = (value) => {
-    console.log("Click:", value);
+    //console.log("Click:", value);
   };
-
 
   return (
     <>
+      <SEO/>
       <BackgroundLogo />
 
       {/* Contenedor vertical de toda la app */}
@@ -32,7 +33,7 @@ function App() {
         style={{ zIndex: 2 }}
       >
         <Header />
-        
+
         {/* Contenido principal (centra la calculadora) */}
         <main className="flex-grow-1 d-flex justify-content-center align-items-center">
           <Calculadora value="0" onButtonClick={handleClick} />
@@ -41,7 +42,7 @@ function App() {
         <Footer />
       </div>
 
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 }
