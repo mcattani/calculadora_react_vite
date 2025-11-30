@@ -118,8 +118,37 @@ export default function Calculadora() {
             return;
         }
 
+        // Si es el porcentaje (%)
+        if (btn === "%") {
+            const numActual = Number(valorActual);
+            // Si hay un valor previo y una operación seleccionada, transformamos el segundo operando en función de la operación
+            if (valorPrevio !== null && operacionActual) {
+                const numPrevio = Number(valorPrevio);
+
+                // Para suma/resta: convertimos numActual a porcentaje de numPrevio
+                if (operacionActual === "+" || operacionActual === "-") {
+                    const porcentajeRelativo = numPrevio * (numActual / 100);
+                    setValorActual(String(limpiarNumero(porcentajeRelativo)));
+                    // No cambiamos operacionActual -> "=" termina la operación
+                    return;
+                }
+
+                // Para multiplicación/división: convertimos numActual a su valor decimal
+                if (operacionActual === "×" || operacionActual === "÷") {
+                    const decimal = numActual / 100;
+                    setValorActual(String(limpiarNumero(decimal)));
+                    return;
+                }
+            }
+
+            // Si no hay valorPrevio — el % actúa como dividir por 100
+            const dividido = numActual / 100;
+            setValorActual(String(limpiarNumero(dividido)));
+            return;
+        }
+
         // Si es una operación
-        if (["+", "-", "×", "÷", "%"].includes(btn)) {
+        if (["+", "-", "×", "÷"].includes(btn)) {
             setValorPrevio(valorActual);
             setOperacionActual(btn);
             setValorActual("0");
@@ -150,10 +179,6 @@ export default function Calculadora() {
                         return;
                     }
                     resultado = num1 / num2;
-                    break;
-                case "%":
-                    // Calcula el porcentaje del primer número respecto al segundo
-                    resultado = (num1 * num2) / 100;
                     break;
             }
 
