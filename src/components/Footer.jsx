@@ -8,23 +8,21 @@ export default function Footer() {
             <Container>
                 <hr />
                 <p className="mb-0">
-                    2025 🄯 - {" "}
+                    2025 🄯 -{" "}
                     <a
                         href="https://thenerdyapprentice.blogspot.com/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-white"
                         style={{ textDecoration: "none" }}
-                    >                       
-                        The Nerdy Apprentice
-                    </a>{" "}<FaBlogger
+                    >
+                        The Nerdy Apprentice{" "}
+                        <FaBlogger
                             size={18}
-                            style={{
-                                marginRight: "6px",
-                                verticalAlign: "middle",
-                            }}
+                            style={{ verticalAlign: "middle" }}
                         />
-                    - Todos los errores reservados.
+                    </a>{" "}
+                    - Todos los errores reservados. (v{__APP_VERSION__})
                 </p>
             </Container>
         </footer>
