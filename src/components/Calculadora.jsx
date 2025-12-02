@@ -15,6 +15,9 @@ export default function Calculadora() {
     const [valorPrevio, setValorPrevio] = useState(null); // El número guardado para la operación
     const [operacionActual, setOperacionActual] = useState(null); // La operación seleccionada
     const [error, setError] = useState(false); // Estado para manejar errores (dividir por cero)
+    // Estados para manejar el doble = 
+    const [ultimaOperacion, setUltimaOperacion] = useState(null);
+    const [ultimoOperando, setUltimoOperando] = useState(null);
 
     // Función para generar el smallValue del display
     function smallDisplay() {
@@ -166,6 +169,34 @@ export default function Calculadora() {
 
         // Si es igual (=) realizamos la operación
         if (btn === "=") {
+
+            // Si no hay valor previo pero sí última operación, repetimos la última operación con el último operando
+            if (valorPrevio === null && !operacionActual && ultimaOperacion !== null) {
+                
+                const num1 = Number(valorActual);
+                const num2 = Number(ultimoOperando);
+                let resultado;
+
+                switch (ultimaOperacion) {
+                    case "+": resultado = num1 + num2; break;
+                    case "-": resultado = num1 - num2; break;
+                    case "×": resultado = num1 * num2; break;
+                    case "÷":
+                        if (num2 === 0) {
+                            resetCalc(true, "∞");
+                            return;
+                        }
+                        resultado = num1 / num2;
+                        break;
+                }
+
+                // Mostramos el resultado
+                setValorActual(String(limpiarNumero(resultado)));
+                return;
+            }
+
+            // Si no hay operación actual o valor previo
+
             if (valorPrevio === null || !operacionActual) return;
 
             const num1 = Number(valorPrevio);
@@ -173,15 +204,9 @@ export default function Calculadora() {
             let resultado;
 
             switch (operacionActual) {
-                case "+":
-                    resultado = num1 + num2;
-                    break;
-                case "-":
-                    resultado = num1 - num2;
-                    break;
-                case "×":
-                    resultado = num1 * num2;
-                    break;
+                case "+": resultado = num1 + num2; break;
+                case "-": resultado = num1 - num2; break;
+                case "×": resultado = num1 * num2; break;
                 case "÷":
                     if (num2 === 0) {
                         resetCalc(true, "∞");
@@ -191,6 +216,11 @@ export default function Calculadora() {
                     break;
             }
 
+            // Guardamos la última operación y operando para permitir el doble =
+            setUltimaOperacion(operacionActual);
+            setUltimoOperando(num2);
+
+            // Mostramos el resultado y reseteamos los valores previos
             setValorActual(String(limpiarNumero(resultado)));
             setValorPrevio(null);
             setOperacionActual(null);
@@ -216,7 +246,7 @@ export default function Calculadora() {
             };
 
             // Solo procesamos si es un número o una tecla mapeada
-            if (!isNaN(key)){
+            if (!isNaN(key)) {
                 onButtonClick(key);
                 return;
             }
@@ -233,9 +263,9 @@ export default function Calculadora() {
             // Lo quitamos al desmontar el componente (evita errores)
             window.removeEventListener("keydown", handleKeyDown);
         };
-        
+
     }, [valorActual, valorPrevio, operacionActual, error]); // Dependencias para actualizar el efecto cuando cambian los estados
-    
+
     return (
         <Container className="d-flex justify-content-center align-items-center">
             <Card className="shadow-lg p-3 bg-body-tertiary" style={{ width: "350px" }}>
