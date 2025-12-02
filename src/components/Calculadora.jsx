@@ -6,7 +6,7 @@ import Teclado from "./Teclado"
 import { useState } from "react";
 import { toast, Bounce } from 'react-toastify';
 
-import { useEffect } from "react"; // Para capturar teclas presionadas
+import { useEffect } from "react"; // Lo utilizaremos para capturar teclas presionadas
 
 export default function Calculadora() {
 
