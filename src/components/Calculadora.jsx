@@ -155,40 +155,69 @@ export default function Calculadora() {
         // Si es una operación
         if (["+", "-", "×", "÷"].includes(btn)) {
 
-            // Si ya hay una operación pendiente y valor actual está en 0 (ej. 2 + +)
+            // Si ya hay una operación y el usuario presiona otro operador sin haber ingresado un nuevo número
             if (valorPrevio !== null && valorActual === "0" && operacionActual) {
                 setOperacionActual(btn); // Cambiamos el operador
-                turn;
+                return;
             }
 
+            // Si hay un operador previo y se agrega -> encadenar operaciones
+            if (valorPrevio !== null && operacionActual && valorActual !== "0") {
+                const num1 = Number(valorPrevio);
+                const num2 = Number(valorActual);
+                let resultado = realizarOperacion(num1, num2, operacionActual);
+
+                // Calculamos el resultado intermedio (sin actualizar el estado aún)
+                const resultadoIntermedio = realizarOperacion(num1, num2, operacionActual);
+
+                // Si realizarOperacion devuelve undefined (división por cero), salimos
+                if (resultado === undefined) return;
+
+                // Actualizamos el valor previo con el resultado
+                setValorPrevio(String(limpiarNumero(resultadoIntermedio)));
+                setOperacionActual(btn);
+                setValorActual("0");
+                return;
+            }
+
+            // Caso general: guardamos el valor actual como previo, la operación y reseteamos el valor actual
             setValorPrevio(valorActual);
             setOperacionActual(btn);
             setValorActual("0");
             return;
         }
 
-        // Si es igual (=) realizamos la operación
+        // Función para realizar las operaciones
+        function realizarOperacion(num1, num2, operador) {
+            let resultado;
+
+            switch (operador) {
+                case "+": resultado = num1 + num2; break;
+                case "-": resultado = num1 - num2; break;
+                case "×": resultado = num1 * num2; break;
+                case "÷":
+                    if (num2 === 0) {
+                        resetCalc(true, "∞");
+                        return undefined;
+                    }
+                    resultado = num1 / num2;
+                    break;
+                default: return undefined;
+            }
+            return resultado;
+        }
+
+        // Si es igual (=) llamamos a la función para realizar operación
         if (btn === "=") {
 
             // Si no hay valor previo pero sí última operación, repetimos la última operación con el último operando
             if (valorPrevio === null && !operacionActual && ultimaOperacion !== null) {
-                
+
                 const num1 = Number(valorActual);
                 const num2 = Number(ultimoOperando);
-                let resultado;
-
-                switch (ultimaOperacion) {
-                    case "+": resultado = num1 + num2; break;
-                    case "-": resultado = num1 - num2; break;
-                    case "×": resultado = num1 * num2; break;
-                    case "÷":
-                        if (num2 === 0) {
-                            resetCalc(true, "∞");
-                            return;
-                        }
-                        resultado = num1 / num2;
-                        break;
-                }
+                let resultado = realizarOperacion(num1, num2, ultimaOperacion);
+                // Si realizarOperacion devuelve undefined (división por cero), salimos
+                if (resultado === undefined) return;
 
                 // Mostramos el resultado
                 setValorActual(String(limpiarNumero(resultado)));
@@ -196,25 +225,13 @@ export default function Calculadora() {
             }
 
             // Si no hay operación actual o valor previo
-
             if (valorPrevio === null || !operacionActual) return;
 
             const num1 = Number(valorPrevio);
             const num2 = Number(valorActual);
-            let resultado;
-
-            switch (operacionActual) {
-                case "+": resultado = num1 + num2; break;
-                case "-": resultado = num1 - num2; break;
-                case "×": resultado = num1 * num2; break;
-                case "÷":
-                    if (num2 === 0) {
-                        resetCalc(true, "∞");
-                        return;
-                    }
-                    resultado = num1 / num2;
-                    break;
-            }
+            let resultado = realizarOperacion(num1, num2, operacionActual);
+            // Si realizarOperacion devuelve undefined (división por cero), salimos
+            if (resultado === undefined) return;
 
             // Guardamos la última operación y operando para permitir el doble =
             setUltimaOperacion(operacionActual);
