@@ -36,7 +36,7 @@ function App() {
 
         {/* Contenido principal (centra la calculadora) */}
         <main className="flex-grow-1 d-flex justify-content-center align-items-center">
-          <Calculadora value="0" onButtonClick={handleClick} />
+          <Calculadora/>
         </main>
 
         <Footer />

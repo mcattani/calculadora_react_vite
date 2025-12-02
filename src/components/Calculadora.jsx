@@ -151,6 +151,13 @@ export default function Calculadora() {
 
         // Si es una operación
         if (["+", "-", "×", "÷"].includes(btn)) {
+
+            // Si ya hay una operación pendiente y valor actual está en 0 (ej. 2 + +)
+            if (valorPrevio !== null && valorActual === "0" && operacionActual) {
+                setOperacionActual(btn); // Cambiamos el operador
+                turn;
+            }
+
             setValorPrevio(valorActual);
             setOperacionActual(btn);
             setValorActual("0");
