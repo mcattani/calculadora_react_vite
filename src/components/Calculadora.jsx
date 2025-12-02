@@ -70,6 +70,8 @@ export default function Calculadora() {
 
         // Si es un número
         if (!isNaN(btn)) {
+            if (valorActual.length >= 16) return; // Limitar la entrada a 16 caracteres
+
             if (valorActual === "0") {
                 setValorActual(btn);
             } else {
@@ -155,38 +157,34 @@ export default function Calculadora() {
         // Si es una operación
         if (["+", "-", "×", "÷"].includes(btn)) {
 
-            // Si ya hay una operación y el usuario presiona otro operador sin haber ingresado un nuevo número
-            if (valorPrevio !== null && valorActual === "0" && operacionActual) {
-                setOperacionActual(btn); // Cambiamos el operador
+            // Cambiar operador solo si no se ingresó un número desde la operación anterior
+            if (valorPrevio !== null && valorActual === "0" && operacionActual !== null){
+                setOperacionActual(btn);
                 return;
             }
 
-            // Si hay un operador previo y se agrega -> encadenar operaciones
+            // Si hay un operador previo y se agrega otro -> encadenar operaciones
             if (valorPrevio !== null && operacionActual && valorActual !== "0") {
                 const num1 = Number(valorPrevio);
                 const num2 = Number(valorActual);
-                let resultado = realizarOperacion(num1, num2, operacionActual);
 
-                // Calculamos el resultado intermedio (sin actualizar el estado aún)
                 const resultadoIntermedio = realizarOperacion(num1, num2, operacionActual);
 
-                // Si realizarOperacion devuelve undefined (división por cero), salimos
-                if (resultado === undefined) return;
+                if (resultadoIntermedio === undefined) return;
 
-                // Actualizamos el valor previo con el resultado
                 setValorPrevio(String(limpiarNumero(resultadoIntermedio)));
                 setOperacionActual(btn);
                 setValorActual("0");
                 return;
             }
 
-            // Caso general: guardamos el valor actual como previo, la operación y reseteamos el valor actual
+            // Caso general
             setValorPrevio(valorActual);
             setOperacionActual(btn);
             setValorActual("0");
             return;
         }
-
+        
         // Función para realizar las operaciones
         function realizarOperacion(num1, num2, operador) {
             let resultado;
