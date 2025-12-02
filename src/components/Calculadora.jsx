@@ -184,7 +184,7 @@ export default function Calculadora() {
             setValorActual("0");
             return;
         }
-        
+
         // Función para realizar las operaciones
         function realizarOperacion(num1, num2, operador) {
             let resultado;
@@ -279,7 +279,7 @@ export default function Calculadora() {
             window.removeEventListener("keydown", handleKeyDown);
         };
 
-    }, [valorActual, valorPrevio, operacionActual, error]); // Dependencias para actualizar el efecto cuando cambian los estados
+    }, [valorActual, valorPrevio, operacionActual, error, ultimaOperacion, ultimoOperando]); // Dependencias para actualizar el efecto cuando cambian los estados
 
     return (
         <Container className="d-flex justify-content-center align-items-center">
