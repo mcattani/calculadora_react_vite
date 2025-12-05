@@ -81,7 +81,9 @@ Para clonar y ejecutar este proyecto en tu máquina local, sigue estos pasos:
 
 ## ✒️ Autor
 
-[The Nerdy Apprentice](https://thenerdyapprentice.blogspot.com/)
+[The Nerdy Apprentice](https://thenerdyapprentice.blogspot.com/) 
+
+Más información en: [https://thenerdyapprentice.blogspot.com/2025/12/calculadora-react-vite.html](https://thenerdyapprentice.blogspot.com/2025/12/calculadora-react-vite.html)
 
 ## 📄 Licencia
 
