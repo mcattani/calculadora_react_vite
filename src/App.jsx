@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 // Importamos componentes necesarios
 import Header from './layout/Header.jsx'
-import Footer from './components/Footer.jsx'
+import Footer from './layout/Footer.jsx'
 import Calculadora from './components/Calculadora.jsx'
 import BackgroundLogo from './components/BackgroundLogo.jsx'
 import SEO from './components/SEO.jsx'

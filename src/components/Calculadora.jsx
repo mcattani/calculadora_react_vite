@@ -248,6 +248,11 @@ export default function Calculadora() {
         function handleKeyDown(e) {
             let key = e.key;
 
+            // Quitamos el foco de cualquier botón para evitar conflictos visuales
+            if (document.activeElement && document.activeElement.blur) {
+                document.activeElement.blur();
+            }
+
             // Mapeo de teclas a botones de la calculadora
             const keyMap = {
                 "Enter": "=",
